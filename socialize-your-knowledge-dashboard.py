@@ -33,20 +33,21 @@ with col_title:
 # MOTOR DE DATOS (Carga y Limpieza)
 @st.cache_data
 def load_and_clean_data():
-    df = pd.read_csv("employee_data.csv")
+    # Obtiene la ruta del directorio donde está el script
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    # Une esa ruta con el nombre del archivo
+    ruta_csv = os.path.join(directorio_actual, "employee_data.csv")
+    
+    # Intenta leer el archivo
+    try:
+        df = pd.read_csv(ruta_csv)
+    except FileNotFoundError:
+        st.error(f"¡Error! No se encuentra el archivo 'employee_data.csv' en: {ruta_csv}")
+        st.stop() # Detiene la ejecución para que no aparezcan más errores
+        
     df = df.drop_duplicates()
-    cols_categoricas = ['gender', 'marital_status', 'position']
-    for col in cols_categoricas:
-        if col in df.columns: df[col] = df[col].astype(str).str.strip()
-    cols_numericas = ['age', 'salary', 'performance_score', 'average_work_hours']
-    for col in cols_numericas:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce')
-            df[col] = df[col].fillna(df[col].median())
-    if 'name_employee' in df.columns:
-        df = df.dropna(subset=['name_employee'])
+    # ... (el resto de tu código de limpieza sigue igual)
     return df
-
 df = load_and_clean_data()
 
 # BARRA LATERAL
