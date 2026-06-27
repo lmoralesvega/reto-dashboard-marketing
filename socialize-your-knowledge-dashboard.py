@@ -149,3 +149,12 @@ with tab3:
     # Extra: Botón para descargar CSV de los datos filtrados
     csv = df_filtrado.to_csv(index=False).encode('utf-8')
     st.download_button("📥 Descargar reporte actual (CSV)", data=csv, file_name="reporte_marketing_filtrado.csv", mime="text/csv")
+
+# CONCLUSION
+st.markdown("### Conclusiones")
+
+st.markdown("<br>", unsafe_allow_html=True)
+st.info("""
+**Conclusión**
+El análisis multivariable del departamento de Marketing revela puntos de acción inmediatos. La distribución del talento nos muestra dónde se concentra el núcleo operativo de la agencia. Notablemente, la relación entre *Horas Trabajadas* y *Desempeño* (con su línea de tendencia) nos permite identificar si el sobreesfuerzo está generando resultados o simplemente causando *burnout*. Finalmente, el mapa de compensación por edad cruzado con género y desempeño otorga una radiografía clara para auditar la equidad salarial interna en los próximos ciclos de revisión.
+""")
