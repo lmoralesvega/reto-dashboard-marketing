@@ -22,9 +22,8 @@ with col_logo:
         directorio_actual = os.path.dirname(os.path.abspath(__file__))
         ruta_logo = os.path.join(directorio_actual, "logo.png")
         st.image(ruta_logo, width=200)
-    except Exception as e: # 👈 Atrapa TODOS los errores, incluyendo el de Streamlit
+    except Exception as e:
         st.warning("Logo pendiente")
-        st.warning("Logo no disponible")
 
 with col_title:
     st.title("HR Analytics Panel - Marketing")
@@ -46,8 +45,22 @@ def load_and_clean_data():
         st.stop() # Detiene la ejecución para que no aparezcan más errores
         
     df = df.drop_duplicates()
-    # ... (el resto de tu código de limpieza sigue igual)
+    
+    cols_categoricas = ['gender', 'marital_status', 'position']
+    for col in cols_categoricas:
+        if col in df.columns: df[col] = df[col].astype(str).str.strip()
+        
+    cols_numericas = ['age', 'salary', 'performance_score', 'average_work_hours']
+    for col in cols_numericas:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+            df[col] = df[col].fillna(df[col].median())
+            
+    if 'name_employee' in df.columns:
+        df = df.dropna(subset=['name_employee'])
+        
     return df
+
 df = load_and_clean_data()
 
 # BARRA LATERAL
@@ -88,6 +101,7 @@ with tab1:
     with col_a:
         # Rúbrica 6: Distribución de puntajes
         st.markdown("#### Distribución del Talento (Desempeño)")
+        st.caption("ℹ️ **Cómo leer este gráfico:** Las barras muestran el volumen de empleados por bloque de calificación. La línea curva indica la tendencia general; los picos más altos señalan la calificación más frecuente en el departamento.")
         fig1, ax1 = plt.subplots(figsize=(6, 4))
         sns.histplot(df_filtrado['performance_score'], bins=5, kde=True, ax=ax1, color='#4A90E2', edgecolor="white")
         ax1.set(xlabel="Puntaje", ylabel="Número de Empleados")
@@ -96,6 +110,7 @@ with tab1:
     with col_b:
         # Horas por género
         st.markdown("#### Carga Laboral Promedio por Género")
+        st.caption("ℹ️ **Cómo leer este gráfico:** Compara visualmente cuántas horas al mes trabaja en promedio cada género. Sirve para identificar rápidamente posibles brechas en la asignación de la carga de trabajo.")
         fig2, ax2 = plt.subplots(figsize=(6, 4))
         horas_gen = df_filtrado.groupby('gender')['average_work_hours'].mean().reset_index()
         sns.barplot(data=horas_gen, x='gender', y='average_work_hours', ax=ax2, palette='Set2')
@@ -104,6 +119,7 @@ with tab1:
 
     # Horas vs Desempeño (Gráfico ancho)
     st.markdown("#### Relación: Horas Trabajadas vs Puntaje de Desempeño")
+    st.caption("ℹ️ **Cómo leer este gráfico:** Cada punto representa a un colaborador. La línea roja central marca la tendencia: si la línea sube, trabajar más horas se traduce en mejor desempeño; si baja o se mantiene plana, alerta sobre posible *burnout* sin impacto en resultados.")
     fig4, ax4 = plt.subplots(figsize=(10, 3))
     sns.regplot(data=df_filtrado, x='average_work_hours', y='performance_score', ax=ax4, color='#F39C12', scatter_kws={'alpha':0.6}, line_kws={'color':'red'})
     ax4.set(xlabel="Horas Trabajadas al Mes", ylabel="Puntaje de Desempeño")
@@ -112,6 +128,7 @@ with tab1:
 with tab2:
     # Edad vs Salario
     st.markdown("#### Curva de Compensación: Edad vs Salario")
+    st.caption("ℹ️ **Cómo leer este gráfico:** Ubica el salario de cada empleado de acuerdo a su edad. El **color** indica el género (revisión de equidad) y el **tamaño del círculo** representa su puntaje de desempeño (círculos grandes = alto desempeño).")
     fig3, ax3 = plt.subplots(figsize=(10, 5))
     sns.scatterplot(data=df_filtrado, x='age', y='salary', hue='gender', size='performance_score', sizes=(40, 200), alpha=0.8, palette='viridis', ax=ax3)
     ax3.set(xlabel="Edad del Colaborador", ylabel="Salario (MXN)")
