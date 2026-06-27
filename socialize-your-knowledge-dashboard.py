@@ -19,15 +19,11 @@ col_logo, col_title = st.columns([1, 4])
 with col_logo:
     try:
         import os
-        # 1. Obtiene la ruta de la carpeta donde está este script (.py)
         directorio_actual = os.path.dirname(os.path.abspath(__file__))
-
-        # 2. Construye la ruta exacta hacia el logo
         ruta_logo = os.path.join(directorio_actual, "logo.png")
-
-        # 3. Muestra la imagen
         st.image(ruta_logo, width=150)
-    except FileNotFoundError:
+    except Exception as e: # 👈 Atrapa TODOS los errores, incluyendo el de Streamlit
+        st.warning("Logo pendiente")
         st.warning("Logo no disponible")
 
 with col_title:
