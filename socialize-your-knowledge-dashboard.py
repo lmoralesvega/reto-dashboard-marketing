@@ -29,6 +29,13 @@ with col_title:
     st.title("HR Analytics Panel - Marketing")
     st.markdown("*Plataforma de inteligencia de talento para la toma de decisiones estratégicas.*")
 
+# DESCRIPCIÓN ESTRATÉGICA DEL DASHBOARD
+st.info("""
+**🎯 Objetivo:** Monitorear la distribución del trabajo y el bienestar del talento en el área de Marketing para un liderazgo sustentable.  
+**📊 Datos visualizados:** Cargas laborales (horas), resultados operativos (desempeño), estructura de compensación (salarios) y demografía.  
+**💡 Impacto en decisiones:** Facilita la identificación temprana de riesgos de *burnout*, permite auditar la equidad salarial interna y fundamenta la optimización en la asignación de proyectos.
+""")
+
 # MOTOR DE DATOS (Carga y Limpieza)
 @st.cache_data
 def load_and_clean_data():
@@ -142,12 +149,3 @@ with tab3:
     # Extra: Botón para descargar CSV de los datos filtrados
     csv = df_filtrado.to_csv(index=False).encode('utf-8')
     st.download_button("📥 Descargar reporte actual (CSV)", data=csv, file_name="reporte_marketing_filtrado.csv", mime="text/csv")
-
-# CONCLUSIONES CORREGIDAS
-st.markdown("### Conclusiones")
-
-st.markdown("<br>", unsafe_allow_html=True)
-st.info("""
-**Conclusión**
-El análisis multivariable del departamento de Marketing revela puntos de acción inmediatos. La distribución del talento nos muestra dónde se concentra el núcleo operativo de la agencia. Notablemente, la relación entre *Horas Trabajadas* y *Desempeño* (con su línea de tendencia) nos permite identificar si el sobreesfuerzo está generando resultados o simplemente causando *burnout*. Finalmente, el mapa de compensación por edad cruzado con género y desempeño otorga una radiografía clara para auditar la equidad salarial interna en los próximos ciclos de revisión.
-""")
