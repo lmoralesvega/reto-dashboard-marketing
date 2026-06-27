@@ -36,13 +36,13 @@ def load_and_clean_data():
     # Obtiene la ruta del directorio donde está el script
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
     # Une esa ruta con el nombre del archivo
-    ruta_csv = os.path.join(directorio_actual, "employee_data.csv")
+    ruta_csv = os.path.join(directorio_actual, "Employee_data.csv")
     
     # Intenta leer el archivo
     try:
         df = pd.read_csv(ruta_csv)
     except FileNotFoundError:
-        st.error(f"¡Error! No se encuentra el archivo 'employee_data.csv' en: {ruta_csv}")
+        st.error(f"¡Error! No se encuentra el archivo 'Employee_data.csv' en: {ruta_csv}")
         st.stop() # Detiene la ejecución para que no aparezcan más errores
         
     df = df.drop_duplicates()
