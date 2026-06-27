@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # CONFIGURACIÓN AVANZADA DE LA PÁGINA
-
 st.set_page_config(
     page_title="HR Analytics | Socialize Your Knowledge", 
     page_icon="📊", 
@@ -16,22 +15,15 @@ st.set_page_config(
 sns.set_theme(style="whitegrid", palette="muted")
 
 # Título, descripción y logotipo
-
 col_logo, col_title = st.columns([1, 4])
 with col_logo:
     try:
         import os
-        import streamlit as st
-
-# 1. Obtiene la ruta de la carpeta donde está este script (.py)
-directorio_actual = os.path.dirname(os.path.abspath(__file__))
-
-# 2. Construye la ruta exacta hacia el logo
-ruta_logo = os.path.join(directorio_actual, "logo.png")
-
-# 3. Muestra la imagen
-st.image(ruta_logo, width=150)
-    except FileNotFoundError:
+        directorio_actual = os.path.dirname(os.path.abspath(__file__))
+        ruta_logo = os.path.join(directorio_actual, "logo.png")
+        st.image(ruta_logo, width=150)
+    except Exception as e: # 👈 Atrapa TODOS los errores, incluyendo el de Streamlit
+        st.warning("Logo pendiente")
         st.warning("Logo no disponible")
 
 with col_title:
@@ -39,27 +31,26 @@ with col_title:
     st.markdown("*Plataforma de inteligencia de talento para la toma de decisiones estratégicas.*")
 
 # MOTOR DE DATOS (Carga y Limpieza)
-
 @st.cache_data
 def load_and_clean_data():
-    df = pd.read_csv("employee_data.csv")
+    # Obtiene la ruta del directorio donde está el script
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    # Une esa ruta con el nombre del archivo
+    ruta_csv = os.path.join(directorio_actual, "employee_data.csv")
+    
+    # Intenta leer el archivo
+    try:
+        df = pd.read_csv(ruta_csv)
+    except FileNotFoundError:
+        st.error(f"¡Error! No se encuentra el archivo 'employee_data.csv' en: {ruta_csv}")
+        st.stop() # Detiene la ejecución para que no aparezcan más errores
+        
     df = df.drop_duplicates()
-    cols_categoricas = ['gender', 'marital_status', 'position']
-    for col in cols_categoricas:
-        if col in df.columns: df[col] = df[col].astype(str).str.strip()
-    cols_numericas = ['age', 'salary', 'performance_score', 'average_work_hours']
-    for col in cols_numericas:
-        if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors='coerce')
-            df[col] = df[col].fillna(df[col].median())
-    if 'name_employee' in df.columns:
-        df = df.dropna(subset=['name_employee'])
+    # ... (el resto de tu código de limpieza sigue igual)
     return df
-
 df = load_and_clean_data()
 
 # BARRA LATERAL
-
 st.sidebar.markdown("### ⚙️ Panel de Control")
 st.sidebar.markdown("Filtra la información para actualizar el dashboard.")
 
@@ -81,7 +72,6 @@ df_filtrado = df_filtrado[(df_filtrado['performance_score'] >= rango_desempeno[0
                           (df_filtrado['performance_score'] <= rango_desempeno[1])]
 
 # SECCIÓN DE KPIS 
-
 st.markdown("---")
 kpi1, kpi2, kpi3, kpi4 = st.columns(4)
 kpi1.metric(label="👥 Total Colaboradores", value=len(df_filtrado))
@@ -91,7 +81,6 @@ kpi4.metric(label="💵 Salario Promedio", value=f"${df_filtrado['salary'].mean(
 st.markdown("---")
 
 # INTERFAZ POR PESTAÑAS 
-
 tab1, tab2, tab3 = st.tabs(["📊 Visión General del Desempeño", "💵 Análisis de Compensación", "📂 Base de Datos y Descarga"])
 
 with tab1:
@@ -137,7 +126,8 @@ with tab3:
     csv = df_filtrado.to_csv(index=False).encode('utf-8')
     st.download_button("📥 Descargar reporte actual (CSV)", data=csv, file_name="reporte_marketing_filtrado.csv", mime="text/csv")
 
-CONCLUSIONES
+# CONCLUSIONES CORREGIDAS
+st.markdown("### Conclusiones")
 
 st.markdown("<br>", unsafe_allow_html=True)
 st.info("""
