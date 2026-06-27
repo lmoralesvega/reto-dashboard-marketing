@@ -21,7 +21,7 @@ with col_logo:
         import os
         directorio_actual = os.path.dirname(os.path.abspath(__file__))
         ruta_logo = os.path.join(directorio_actual, "logo.png")
-        st.image(ruta_logo, width=150)
+        st.image(ruta_logo, width=200)
     except Exception as e: # 👈 Atrapa TODOS los errores, incluyendo el de Streamlit
         st.warning("Logo pendiente")
         st.warning("Logo no disponible")
