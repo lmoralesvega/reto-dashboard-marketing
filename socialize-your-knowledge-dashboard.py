@@ -177,11 +177,3 @@ with col_c3:
     **3. Inequidad Sistémica**  
     Mujeres divorciadas muestran rendimiento intachable pero enfrentan un **techo de cristal salarial** (< 70k MXN) y depreciación por edad. En contraste, hombres en la misma categoría alcanzan cúpulas salariales (hasta 150k MXN) a pesar de presentar deficiencias operativas.
     """)
-# Recomendaciones en la parte inferior
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("#### 🚀 Recomendaciones Estratégicas (Siguientes Pasos)")
-st.markdown("""
-1. **Auditoría de Compensaciones:** Reestructurar los tabuladores salariales para garantizar que la remuneración esté anclada al mérito y al valor del rol, eliminando las brechas demográficas detectadas.
-2. **Reingeniería Operativa:** Implementar un límite estricto a las cargas de trabajo (reducción de horas ineficientes) para mitigar el riesgo inminente de *burnout*.
-3. **Calibración de Liderazgo:** Capacitar a los evaluadores (*managers*) para forzar una curva de distribución de desempeño realista que premie la eficiencia (lograr más con menos horas) sobre el presentismo.
-""")
