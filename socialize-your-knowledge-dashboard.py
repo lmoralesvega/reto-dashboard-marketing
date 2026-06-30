@@ -157,7 +157,6 @@ st.markdown("### Resumen Ejecutivo y Conclusión General")
 st.markdown("""
 El análisis interactivo del departamento de Marketing revela que, si bien existen métricas superficiales de paridad, una inmersión profunda en los datos cruzados expone fallas sistémicas en tres pilares organizacionales: la evaluación del desempeño, la gestión de la carga laboral y la equidad en la retribución.
 """)
-
 # Dividir los 3 hallazgos principales en columnas para mejor lectura
 col_c1, col_c2, col_c3 = st.columns(3)
 
@@ -174,10 +173,9 @@ with col_c2:
     """)
 
 with col_c3:
-with col_c3:
-    st.error(r"""
+    st.error("""
     **3. Inequidad Sistémica**  
-    Mujeres divorciadas muestran rendimiento intachable pero enfrentan un **techo de cristal salarial** (<\$70k) y depreciación por edad. En contraste, hombres en la misma categoría alcanzan cúpulas salariales (hasta \$150k) a pesar de presentar deficiencias operativas.
+    Mujeres divorciadas muestran rendimiento intachable pero enfrentan un **techo de cristal salarial** (< 70k MXN) y depreciación por edad. En contraste, hombres en la misma categoría alcanzan cúpulas salariales (hasta 150k MXN) a pesar de presentar deficiencias operativas.
     """)
 # Recomendaciones en la parte inferior
 st.markdown("<br>", unsafe_allow_html=True)
