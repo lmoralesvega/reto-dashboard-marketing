@@ -152,10 +152,10 @@ with tab3:
 
 # RESUMEN EJECUTIVO Y CONCLUSIÓN GENERAL
 st.markdown("---")
-st.markdown("### 📊 Resumen Ejecutivo y Conclusión General")
+st.markdown("###Resumen Ejecutivo y Conclusión General")
 
 st.markdown("""
-El análisis interactivo del departamento de Marketing revela que, si bien existen métricas superficiales de paridad, una inmersión profunda en los datos cruzados expone fallas sistémicas en tres pilares organizacionales: la evaluación del desempeño, la gestión de la carga laboral y la equidad retributiva.
+El análisis interactivo del departamento de Marketing revela que, si bien existen métricas superficiales de paridad, una inmersión profunda en los datos cruzados expone fallas sistémicas en tres pilares organizacionales: la evaluación del desempeño, la gestión de la carga laboral y la equidad en la retribución.
 """)
 
 # Dividir los 3 hallazgos principales en columnas para mejor lectura
