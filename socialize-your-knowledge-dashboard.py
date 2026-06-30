@@ -150,11 +150,40 @@ with tab3:
     csv = df_filtrado.to_csv(index=False).encode('utf-8')
     st.download_button("📥 Descargar reporte actual (CSV)", data=csv, file_name="reporte_marketing_filtrado.csv", mime="text/csv")
 
-# CONCLUSION
-st.markdown("### Conclusiones")
+# RESUMEN EJECUTIVO Y CONCLUSIÓN GENERAL
+st.markdown("---")
+st.markdown("### 📊 Resumen Ejecutivo y Conclusión General")
 
+st.markdown("""
+El análisis interactivo del departamento de Marketing revela que, si bien existen métricas superficiales de paridad, una inmersión profunda en los datos cruzados expone fallas sistémicas en tres pilares organizacionales: la evaluación del desempeño, la gestión de la carga laboral y la equidad retributiva.
+""")
+
+# Dividir los 3 hallazgos principales en columnas para mejor lectura
+col_c1, col_c2, col_c3 = st.columns(3)
+
+with col_c1:
+    st.info("""
+    **1. Colapso de Evaluación**  
+    El sistema de medición es disfuncional por un **sesgo de tendencia central**. La concentración masiva en la calificación estándar (3.0) impide diferenciar entre el talento excepcional y el de bajo rendimiento, diluyendo el mérito.
+    """)
+
+with col_c2:
+    st.warning("""
+    **2. Riesgo de Burnout**  
+    El sobreesfuerzo es invisible. En grupos específicos (ej. hombres divorciados), trabajar más horas tiene una **correlación negativa** con el desempeño, evidenciando un desgaste operativo donde la fatiga genera calificaciones reprobatorias.
+    """)
+
+with col_c3:
+    st.error("""
+    **3. Inequidad Sistémica**  
+    Mujeres divorciadas muestran rendimiento intachable pero enfrentan un **techo de cristal salarial** (<$70k) y depreciación por edad. En contraste, hombres en la misma categoría alcanzan cúpulas salariales (hasta $150k) a pesar de presentar deficiencias operativas.
+    """)
+
+# Recomendaciones en la parte inferior
 st.markdown("<br>", unsafe_allow_html=True)
-st.info("""
-**Conclusión**
-El análisis multivariable del departamento de Marketing revela puntos de acción inmediatos. La distribución del talento nos muestra dónde se concentra el núcleo operativo de la agencia. Notablemente, la relación entre *Horas Trabajadas* y *Desempeño* (con su línea de tendencia) nos permite identificar si el sobreesfuerzo está generando resultados o simplemente causando *burnout*. Finalmente, el mapa de compensación por edad cruzado con género y desempeño otorga una radiografía clara para auditar la equidad salarial interna en los próximos ciclos de revisión.
+st.markdown("#### 🚀 Recomendaciones Estratégicas (Siguientes Pasos)")
+st.markdown("""
+1. **Auditoría de Compensaciones:** Reestructurar los tabuladores salariales para garantizar que la remuneración esté anclada al mérito y al valor del rol, eliminando las brechas demográficas detectadas.
+2. **Reingeniería Operativa:** Implementar un límite estricto a las cargas de trabajo (reducción de horas ineficientes) para mitigar el riesgo inminente de *burnout*.
+3. **Calibración de Liderazgo:** Capacitar a los evaluadores (*managers*) para forzar una curva de distribución de desempeño realista que premie la eficiencia (lograr más con menos horas) sobre el presentismo.
 """)
