@@ -174,12 +174,11 @@ with col_c2:
     """)
 
 with col_c3:
-    with col_c3:
-    st.error("""
+with col_c3:
+    st.error(r"""
     **3. Inequidad Sistémica**  
     Mujeres divorciadas muestran rendimiento intachable pero enfrentan un **techo de cristal salarial** (<\$70k) y depreciación por edad. En contraste, hombres en la misma categoría alcanzan cúpulas salariales (hasta \$150k) a pesar de presentar deficiencias operativas.
     """)
-
 # Recomendaciones en la parte inferior
 st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("#### 🚀 Recomendaciones Estratégicas (Siguientes Pasos)")
